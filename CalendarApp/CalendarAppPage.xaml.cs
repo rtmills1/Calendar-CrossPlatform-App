@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 using XamForms.Controls;
+using System;
 
 namespace CalendarApp
 {
@@ -20,5 +21,10 @@ namespace CalendarApp
 				var dateSelect = calendar.SelectedDate;
 			};
 		}
-    }
+		
+        private async void NavigateButton2_OnClicked(object sender, EventArgs e)
+		{
+            await Navigation.PushAsync(new HomePage());
+		}
+	}
 }
