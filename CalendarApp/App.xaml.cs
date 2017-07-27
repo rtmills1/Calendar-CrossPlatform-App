@@ -1,4 +1,6 @@
 ﻿using Xamarin.Forms;
+using System;
+using System.Collections.ObjectModel;
 
 namespace CalendarApp
 {
@@ -11,7 +13,10 @@ namespace CalendarApp
             //MainPage = new HomePage();
 
             MainPage = new NavigationPage(new HomePage());
+
         }
+		
+		
 
         protected override void OnStart()
         {
