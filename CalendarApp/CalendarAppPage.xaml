@@ -2,8 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:XamForms.Controls;assembly=XamForms.Controls.Calendar" x:Class="CalendarApp.CalendarAppPage" Title="Calendar Page">
 	
  <StackLayout>
-        <Label FormattedText="Calendar!!!" />
-       
      <controls:Calendar  SelectedDate="{Binding CalendarSelectedDate, Mode=TwoWay}" 
       HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"  x:Name="calendar" DateCommand="
       {Binding DateSelectedcommand}"/>

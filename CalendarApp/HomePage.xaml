@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="CalendarApp.HomePage" Title="Home Page">
 	<ContentPage.Content>
-        <StackLayout BackgroundColor="White" Padding="60" VerticalOptions="Center"> 
+        <StackLayout Padding="60" VerticalOptions="Center"> 
         <Button Text="Calendar Page" BackgroundColor="#1200" Clicked="NavigateButton_OnClicked"></Button></StackLayout> 
 	</ContentPage.Content>
 </ContentPage>

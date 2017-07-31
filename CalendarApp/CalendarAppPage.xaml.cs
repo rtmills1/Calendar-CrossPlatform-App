@@ -12,16 +12,16 @@ namespace CalendarApp
         {
             InitializeComponent();
 
-            Calendar calendar = new Calendar()
+            /*Calendar calendar = new Calendar()
             {
                 WidthRequest = 300,
                 HeightRequest = 300
-            };
+            };*/
 
-            calendar.DateClicked += (object sender, DateTimeEventArgs e) =>
+            /*calendar.DateClicked += (object sender, DateTimeEventArgs e) =>
             {
                 var dateSelect = calendar.SelectedDate;
-            };
+            };*/
 
             Label header = new Label
             {
@@ -31,19 +31,19 @@ namespace CalendarApp
             };
 
             // Define some data.
-            List<Person> people = new List<Person>
+            List<CalendarDate> calendarDate = new List<CalendarDate>
             {
-                new Person("Movies", new DateTime(2017, 7, 27), Color.Aqua),
-                new Person("Holiday", new DateTime(2017, 8, 1), Color.Black),
-                new Person("Sell House", new DateTime(2018, 6, 10), Color.Purple),
-                new Person("Anniversary", new DateTime(2019, 2, 5), Color.Red)
+                new CalendarDate("Movies", new DateTime(2017, 2, 1, 11, 30, 0), Color.Aqua),
+                new CalendarDate("Holiday", new DateTime(2017, 8, 1, 13, 45, 0), Color.Black),
+                new CalendarDate("Sell House", new DateTime(2018, 6, 10,14, 0, 0), Color.Purple),
+                new CalendarDate("Anniversary", new DateTime(2019, 2, 5, 20, 30, 0), Color.Red)
             };
 
             // Create the ListView.
             ListView listView = new ListView
             {
                 // Source of data items.
-                ItemsSource = people,
+                ItemsSource = calendarDate,
 
                 // Define template for displaying each item.
                 // (Argument of DataTemplate constructor is called for 
@@ -54,13 +54,13 @@ namespace CalendarApp
                         Label nameLabel = new Label();
                         nameLabel.SetBinding(Label.TextProperty, "Name");
 
-                        Label birthdayLabel = new Label();
-                        birthdayLabel.SetBinding(Label.TextProperty,
-                            new Binding("Birthday", BindingMode.OneWay,
-                                null, null, "On {0:d}"));
+                        Label dateLabel = new Label();
+                        dateLabel.SetBinding(Label.TextProperty,
+                            new Binding("Date", BindingMode.OneWay,
+                                        null, null, "At {0:h:mm tt MM/dd/yy}"));
 
                         BoxView boxView = new BoxView();
-                        boxView.SetBinding(BoxView.ColorProperty, "FavoriteColor");
+                        boxView.SetBinding(BoxView.ColorProperty, "Colour");
 
                         // Return an assembled ViewCell.
                         return new ViewCell
@@ -79,7 +79,7 @@ namespace CalendarApp
                                         Children =
                                         {
                                             nameLabel,
-                                            birthdayLabel
+                                            dateLabel
                                         }
                                         }
                                 }
@@ -103,20 +103,20 @@ namespace CalendarApp
 
         }
 
-        class Person
+        class CalendarDate
         {
-            public Person(string name, DateTime birthday, Color favoriteColor)
+            public CalendarDate(string name, DateTime date, Color colour)
             {
                 this.Name = name;
-                this.Birthday = birthday;
-                this.FavoriteColor = favoriteColor;
+                this.Date = date;
+                this.Colour = colour;
             }
 
             public string Name { private set; get; }
 
-            public DateTime Birthday { private set; get; }
+            public DateTime Date { private set; get; }
 
-            public Color FavoriteColor { private set; get; }
+            public Color Colour { private set; get; }
         };
 
     }	
