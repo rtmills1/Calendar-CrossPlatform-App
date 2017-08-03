@@ -1,5 +1,4 @@
 ﻿using Xamarin.Forms;
-using XamForms.Controls;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
@@ -48,6 +47,8 @@ namespace CalendarApp
                 new CalendarDate("Sell House", new DateTime(2018, 6, 10, 14, 00 ,00), Color.Purple),
                 new CalendarDate("Anniversary", new DateTime(2019, 2, 5, 20, 30, 0), Color.Red)
             };
+			
+           
 
             // Create the ListView.
             ListView listView = new ListView

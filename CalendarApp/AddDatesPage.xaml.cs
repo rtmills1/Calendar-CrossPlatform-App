@@ -64,8 +64,8 @@ namespace CalendarApp
             // Create BoxView for displaying picked Color
             BoxView boxView = new BoxView
             {
-                WidthRequest = 100,
-                HeightRequest = 100,
+                WidthRequest = 65,
+                HeightRequest = 65,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 Color = Color.White
@@ -115,8 +115,9 @@ namespace CalendarApp
                     //Combines both Date and time into one data value DateTime
                     DateTime fullDate = dateDate + dateTime;
 
-                    //label.Text = String.Format("{0}, {1}, {2}", name, fullDate, realColor);
-
+                //label.Text = String.Format("{0}, {1}, {2}", name, fullDate, realColor);
+                    Navigation.InsertPageBefore(new HomePage(), this);
+				    Navigation.PopAsync();
                     //Sends data to calendar and sends users back to calendar page
                     Navigation.PushAsync(new CalendarAppPage(name, fullDate, realColor));
 
@@ -131,13 +132,14 @@ namespace CalendarApp
                 Children =
                 {
                     header,
+                    nameEntry,
                     datePicker,
                     time,
-                    nameEntry,
                     picker,
+                    boxView,
                     button,
                     label,
-                    boxView
+
                 }
             };
         }
