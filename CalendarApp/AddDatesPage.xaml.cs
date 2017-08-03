@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+
+
 using Xamarin.Forms;
 
 namespace CalendarApp
@@ -21,7 +23,7 @@ namespace CalendarApp
             };
 
         Label label;
-        int clickTotal = 0;
+
 
         public AddDatesPage()
         {
@@ -50,9 +52,11 @@ namespace CalendarApp
             {
                 Title = "Color",
                 VerticalOptions = LayoutOptions.CenterAndExpand
+                                                                             
             };
 
-            foreach (string colorName in nameToColor.Keys)
+
+			foreach (string colorName in nameToColor.Keys)
             {
                 picker.Items.Add(colorName);
             }
@@ -60,17 +64,19 @@ namespace CalendarApp
             // Create BoxView for displaying picked Color
             BoxView boxView = new BoxView
             {
-                WidthRequest = 150,
-                HeightRequest = 150,
+                WidthRequest = 100,
+                HeightRequest = 100,
                 HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                Color = Color.White
+                                               
             };
 
             picker.SelectedIndexChanged += (sender, args) =>
                 {
-                    if (picker.SelectedIndex == -1)
+                    if (picker.SelectedIndex <= -1)
                     {
-                        boxView.Color = Color.Default;
+                        boxView.Color = Color.White;
                     }
                     else
                     {
@@ -81,7 +87,7 @@ namespace CalendarApp
 
             label = new Label
             {
-                Text = "0 Date Entry",
+                Text = "",
                 //Font = Font.SystemFontOfSize(NamedSize.Large),
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
@@ -89,7 +95,7 @@ namespace CalendarApp
 
            Button button = new Button
             {
-                Text = "Create Date",
+                Text = "Create Entry",
                 Font = Font.SystemFontOfSize(NamedSize.Large),
                 BorderWidth = 1,
                 HorizontalOptions = LayoutOptions.Center,
@@ -98,9 +104,25 @@ namespace CalendarApp
             button.Clicked += OnButtonClicked;
             void OnButtonClicked(object sender, EventArgs e)
             {
-	            clickTotal += 1;
-	            label.Text = String.Format("{0} Date{1}",
-	                                       clickTotal, clickTotal == 1 ? "" : "s");
+
+                    //Gets values from user entry fields/pickers
+
+                    var name = nameEntry.Text;
+                    var dateDate = datePicker.Date;
+                    var dateTime = time.Time;
+                    Color realColor = boxView.Color;
+
+                    //Combines both Date and time into one data value DateTime
+                    DateTime fullDate = dateDate + dateTime;
+
+                    //label.Text = String.Format("{0}, {1}, {2}", name, fullDate, realColor);
+
+                    //Sends data to calendar and sends users back to calendar page
+                    Navigation.PushAsync(new CalendarAppPage(name, fullDate, realColor));
+
+                
+				
+                
             }
 
             // Build the page.

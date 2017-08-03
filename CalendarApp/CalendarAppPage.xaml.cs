@@ -9,11 +9,27 @@ namespace CalendarApp
 {
     public partial class CalendarAppPage : ContentPage
     {
-        public CalendarAppPage()
+       
+
+        public CalendarAppPage(string name, DateTime fullData, Color realColor)
         {
             InitializeComponent();
 
+			Button button = new Button
+			{
+				Text = "Create Date",
+				Font = Font.SystemFontOfSize(NamedSize.Large),
+				BorderWidth = 1,
+				HorizontalOptions = LayoutOptions.Center,
+				VerticalOptions = LayoutOptions.CenterAndExpand
+			};
+			button.Clicked += OnButtonClicked;
+			void OnButtonClicked(object sender, EventArgs e)
+			{
 
+                Navigation.PushAsync(new AddDatesPage());
+
+			}
 
             Label header = new Label
             {
@@ -23,13 +39,13 @@ namespace CalendarApp
             };
 
 
-
             // Define some data.
             List<CalendarDate> calendarDate = new List<CalendarDate>
             {
+                new CalendarDate(name, fullData, realColor),
                 new CalendarDate("Movies", new DateTime(2017, 2, 1, 11, 30, 0), Color.Aqua),
-                new CalendarDate("Holiday", new DateTime(2017, 8, 1, 13, 45, 0), Color.Black),
-                new CalendarDate("Sell House", new DateTime(2018, 6, 10,14, 0, 0), Color.Purple),
+                new CalendarDate("Holiday", new DateTime(2017, 8, 1, 13, 45, 00), Color.Black),
+                new CalendarDate("Sell House", new DateTime(2018, 6, 10, 14, 00 ,00), Color.Purple),
                 new CalendarDate("Anniversary", new DateTime(2019, 2, 5, 20, 30, 0), Color.Red)
             };
 
@@ -56,6 +72,8 @@ namespace CalendarApp
                             new Binding("Date", BindingMode.OneWay,
                                         null, null, "At {0:h:mm tt MM/dd/yy}"));
 
+					
+
                         BoxView boxView = new BoxView();
                         boxView.SetBinding(BoxView.ColorProperty, "Colour");
 
@@ -78,6 +96,7 @@ namespace CalendarApp
                                         {
                                             nameLabel,
                                             dateLabel
+
                                         }
                                         }
                                 }
@@ -97,6 +116,7 @@ namespace CalendarApp
                 Children =
                 {
                     header,
+                    button,
                     listView
                 }
             };
