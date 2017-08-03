@@ -29,18 +29,20 @@ namespace CalendarApp
         {
             InitializeComponent();
 
-
+            // Text field for users to enter in name of calendar event
             var nameEntry = new Entry {Placeholder = "Event Name"};
             
-
+            // Defines Date picker for users to select date of calendar event
             DatePicker datePicker = new DatePicker
             {
                 Format = "D",
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            // Time picker for users to select time of event
             var time = new TimePicker () { Time = new TimeSpan (17,0,0) };
 
+            //Heading for the page
             Label header = new Label
             {
                 Text = "Create New Date",
@@ -48,6 +50,7 @@ namespace CalendarApp
                 HorizontalOptions = LayoutOptions.Center
             };
 
+            // Color picker for users to select colour for there event
             Picker picker = new Picker
             {
                 Title = "Color",
@@ -55,7 +58,7 @@ namespace CalendarApp
                                                                              
             };
 
-
+            // Gets colour definitions from string dictionary
 			foreach (string colorName in nameToColor.Keys)
             {
                 picker.Items.Add(colorName);
@@ -67,11 +70,12 @@ namespace CalendarApp
                 WidthRequest = 65,
                 HeightRequest = 65,
                 HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.Start,
                 Color = Color.White
                                                
             };
 
+            // Selected box views colour from index
             picker.SelectedIndexChanged += (sender, args) =>
                 {
                     if (picker.SelectedIndex <= -1)
@@ -85,6 +89,7 @@ namespace CalendarApp
                     }
                 };
 
+            // Unused label, was used to display string outputs of selected values
             label = new Label
             {
                 Text = "",
@@ -93,14 +98,21 @@ namespace CalendarApp
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-           Button button = new Button
+            // Button to pass all the users inputed values into the listview calendar
+            Button button = new Button
             {
                 Text = "Create Entry",
-                Font = Font.SystemFontOfSize(NamedSize.Large),
+                Font = Font.SystemFontOfSize(NamedSize.Medium),
                 BorderWidth = 1,
+                BorderRadius = 3,
                 HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand
-            };
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+				TextColor = Color.White,
+                BackgroundColor = Color.FromHex("24BDFF"),
+                BorderColor = Color.FromHex("006996")
+
+
+			};
             button.Clicked += OnButtonClicked;
             void OnButtonClicked(object sender, EventArgs e)
             {
@@ -121,8 +133,7 @@ namespace CalendarApp
                     //Sends data to calendar and sends users back to calendar page
                     Navigation.PushAsync(new CalendarAppPage(name, fullDate, realColor));
 
-                
-				
+    
                 
             }
 

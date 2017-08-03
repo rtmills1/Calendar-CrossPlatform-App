@@ -14,22 +14,29 @@ namespace CalendarApp
         {
             InitializeComponent();
 
+            //Button that links to AddDatesPage so users can create a calendar item
 			Button button = new Button
 			{
 				Text = "Create Date",
-				Font = Font.SystemFontOfSize(NamedSize.Large),
+                Font = Font.SystemFontOfSize(NamedSize.Small),
 				BorderWidth = 1,
+                BorderRadius = 3,
 				HorizontalOptions = LayoutOptions.Center,
-				VerticalOptions = LayoutOptions.CenterAndExpand
+				VerticalOptions = LayoutOptions.CenterAndExpand,
+				TextColor = Color.White,
+				BackgroundColor = Color.FromHex("24BDFF"),
+				BorderColor = Color.FromHex("006996")
+                                               
 			};
+            //When button is clicked
 			button.Clicked += OnButtonClicked;
 			void OnButtonClicked(object sender, EventArgs e)
 			{
-
+                //Send users to AddDatesPage
                 Navigation.PushAsync(new AddDatesPage());
 
 			}
-
+            //Heading for the page
             Label header = new Label
             {
                 Text = "Calendar",
@@ -39,13 +46,20 @@ namespace CalendarApp
 
 
             // Define some data.
+            // Saves calendar dates into the list
             List<CalendarDate> calendarDate = new List<CalendarDate>
             {
                 new CalendarDate(name, fullData, realColor),
                 new CalendarDate("Movies", new DateTime(2017, 2, 1, 11, 30, 0), Color.Aqua),
-                new CalendarDate("Holiday", new DateTime(2017, 8, 1, 13, 45, 00), Color.Black),
-                new CalendarDate("Sell House", new DateTime(2018, 6, 10, 14, 00 ,00), Color.Purple),
-                new CalendarDate("Anniversary", new DateTime(2019, 2, 5, 20, 30, 0), Color.Red)
+                new CalendarDate("Holiday", new DateTime(2017, 8, 1, 13, 45, 00), Color.Green),
+                new CalendarDate("Sell House", new DateTime(2017, 8, 20, 14, 00 ,00), Color.Purple),
+                new CalendarDate("Marathon", new DateTime(2017, 9, 5, 20, 30, 0), Color.Yellow),
+                new CalendarDate("Bills", new DateTime(2017, 10, 5, 20, 30, 0), Color.Blue),
+                new CalendarDate("Christmas", new DateTime(2017, 12, 25, 7, 0, 0), Color.Red),
+                new CalendarDate("Family Gathering", new DateTime(2018, 2, 12, 12, 30, 0), Color.GreenYellow),
+                new CalendarDate("Car Checkup", new DateTime(2018, 4, 5, 14, 45, 0), Color.Pink),
+                new CalendarDate("Snow", new DateTime(2018, 2, 6, 6, 30, 0), Color.DeepSkyBlue),
+                new CalendarDate("Mountain Biking", new DateTime(2019, 2, 5, 11, 0, 0), Color.Orange),
             };
 			
            
