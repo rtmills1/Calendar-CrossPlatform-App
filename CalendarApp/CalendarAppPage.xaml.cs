@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 
+
 namespace CalendarApp
 {
     public partial class CalendarAppPage : ContentPage
@@ -12,16 +13,7 @@ namespace CalendarApp
         {
             InitializeComponent();
 
-            /*Calendar calendar = new Calendar()
-            {
-                WidthRequest = 300,
-                HeightRequest = 300
-            };*/
 
-            /*calendar.DateClicked += (object sender, DateTimeEventArgs e) =>
-            {
-                var dateSelect = calendar.SelectedDate;
-            };*/
 
             Label header = new Label
             {
@@ -29,6 +21,8 @@ namespace CalendarApp
                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
                 HorizontalOptions = LayoutOptions.Center
             };
+
+
 
             // Define some data.
             List<CalendarDate> calendarDate = new List<CalendarDate>
@@ -42,6 +36,7 @@ namespace CalendarApp
             // Create the ListView.
             ListView listView = new ListView
             {
+
                 // Source of data items.
                 ItemsSource = calendarDate,
 
@@ -50,6 +45,8 @@ namespace CalendarApp
                 //      each item; it must return a Cell derivative.)
                 ItemTemplate = new DataTemplate(() =>
                     {
+
+
                         // Create views with bindings for displaying each property.
                         Label nameLabel = new Label();
                         nameLabel.SetBinding(Label.TextProperty, "Name");
@@ -61,6 +58,7 @@ namespace CalendarApp
 
                         BoxView boxView = new BoxView();
                         boxView.SetBinding(BoxView.ColorProperty, "Colour");
+
 
                         // Return an assembled ViewCell.
                         return new ViewCell
@@ -87,6 +85,8 @@ namespace CalendarApp
                         };
                     })
             };
+
+
 
             // Accomodate iPhone status bar.
             //this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
@@ -119,5 +119,6 @@ namespace CalendarApp
             public Color Colour { private set; get; }
         };
 
-    }	
+    }
+	
 }
