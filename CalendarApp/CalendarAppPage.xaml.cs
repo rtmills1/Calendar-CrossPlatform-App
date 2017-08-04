@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace CalendarApp
 {
+
     public partial class CalendarAppPage : ContentPage
     {
        
@@ -13,6 +14,41 @@ namespace CalendarApp
         public CalendarAppPage(string name, DateTime fullData, Color realColor)
         {
             InitializeComponent();
+
+            //Switch buttons to filter calendar dates between different periods
+            TableView tableView = new TableView
+            {
+                HeightRequest = 185,
+                RowHeight = 35,
+                VerticalOptions = LayoutOptions.StartAndExpand,
+				Intent = TableIntent.Form,
+				Root = new TableRoot
+				{
+					new TableSection ("Filters")
+                    {
+                        new SwitchCell
+                        {
+                            Text = "Today:",
+                            On = true
+                                     
+                        },
+         
+                        new SwitchCell
+                        {
+                            Text = "Week:",
+                            On = true
+                        },
+              
+                        new SwitchCell{
+                            Text = "Month:",
+                            On = true
+                        }
+                    
+					}
+				}
+			};
+
+			
 
             //Button that links to AddDatesPage so users can create a calendar item
 			Button button = new Button
@@ -37,12 +73,12 @@ namespace CalendarApp
 
 			}
             //Heading for the page
-            Label header = new Label
+           /* Label header = new Label
             {
                 Text = "Calendar",
                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
                 HorizontalOptions = LayoutOptions.Center
-            };
+            };*/
 
 
             // Define some data.
@@ -123,18 +159,20 @@ namespace CalendarApp
 
 
             // Accomodate iPhone status bar.
-            //this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
+            this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
 
             // Build the page.
             this.Content = new StackLayout
             {
                 Children =
                 {
-                    header,
                     button,
-                    listView
+                    listView,
+                    tableView
                 }
+
             };
+	
 
         }
 
@@ -153,6 +191,7 @@ namespace CalendarApp
 
             public Color Colour { private set; get; }
         };
+
 
     }
 	

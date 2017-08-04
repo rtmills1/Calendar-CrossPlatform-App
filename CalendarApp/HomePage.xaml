@@ -20,6 +20,12 @@
                 BorderColor="#006996"
                 BorderWidth="1"
                 BorderRadius="3" Clicked="NavigateButton_OnClicked1"></Button>
-        </StackLayout> 
+        
+            <Button Text="About" TextColor="White"
+                BackgroundColor="#24BDFF"
+                BorderColor="#006996"
+                BorderWidth="1"
+                BorderRadius="3" Clicked="NavigateButton_OnClicked2"></Button>
+        </StackLayout>
 	</ContentPage.Content>
 </ContentPage>
