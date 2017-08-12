@@ -48,6 +48,19 @@ namespace CalendarApp
 
 		}
 
+		// Navigation function for the third button, sends to AboutPage
+		private async void NavigateButton_OnClicked3(object sender, EventArgs e)
+		{
+            await Navigation.PushAsync(new LoginPage());
+
+			var existingPages = Navigation.NavigationStack.ToList();
+			foreach (var page in existingPages)
+			{
+				Navigation.RemovePage(page);
+			}
+
+		}
+
 		
 	}
 }

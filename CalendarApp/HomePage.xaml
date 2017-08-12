@@ -26,6 +26,12 @@
                 BorderColor="#006996"
                 BorderWidth="1"
                 BorderRadius="3" Clicked="NavigateButton_OnClicked2"></Button>
+
+            <Button Text="Logout" TextColor="White"
+                BackgroundColor="#24BDFF"
+                BorderColor="#006996"
+                BorderWidth="1"
+                BorderRadius="3" Clicked="NavigateButton_OnClicked3"></Button>
         </StackLayout>
 	</ContentPage.Content>
 </ContentPage>
