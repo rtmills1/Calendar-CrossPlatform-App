@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 
 
@@ -130,9 +131,9 @@ namespace CalendarApp
                 //label.Text = String.Format("{0}, {1}, {2}", name, fullDate, realColor);
                     Navigation.InsertPageBefore(new HomePage(), this);
 				    Navigation.PopAsync();
+				    
                     //Sends data to calendar and sends users back to calendar page
                     Navigation.PushAsync(new CalendarAppPage(name, fullDate, realColor));
-
     
                 
             }

@@ -48,7 +48,7 @@ namespace CalendarApp
 
 		}
 
-		// Navigation function for the third button, sends to AboutPage
+		// Navigation function for the forth button, sends to LoginPage
 		private async void NavigateButton_OnClicked3(object sender, EventArgs e)
 		{
             await Navigation.PushAsync(new LoginPage());

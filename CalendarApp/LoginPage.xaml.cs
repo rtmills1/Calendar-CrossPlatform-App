@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 
 using Xamarin.Forms;
 
@@ -11,6 +12,8 @@ namespace CalendarApp
         public LoginPage()
         {
             InitializeComponent();
+
+
 
 			//Heading for the page
 			Label header = new Label
@@ -28,10 +31,10 @@ namespace CalendarApp
 			{
 				Text = "Login",
 				Font = Font.SystemFontOfSize(NamedSize.Medium),
-				BorderWidth = 1,
+				BorderWidth = 2,
 				BorderRadius = 3,
-				HorizontalOptions = LayoutOptions.Center,
-				VerticalOptions = LayoutOptions.CenterAndExpand,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.StartAndExpand,
 				TextColor = Color.White,
 				BackgroundColor = Color.FromHex("24BDFF"),
 				BorderColor = Color.FromHex("006996")
@@ -44,7 +47,8 @@ namespace CalendarApp
 				Font = Font.SystemFontOfSize(NamedSize.Medium),
 				BorderWidth = 1,
 				BorderRadius = 3,
-				HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.StartAndExpand,
 				TextColor = Color.White,
 				BackgroundColor = Color.FromHex("24BDFF"),
 				BorderColor = Color.FromHex("006996")
@@ -64,6 +68,8 @@ namespace CalendarApp
 
 			}
 
+
+
 			// Build the page.
 			this.Content = new StackLayout
 			{
@@ -81,7 +87,7 @@ namespace CalendarApp
 
         }
 
-		
+
 
 
     }
