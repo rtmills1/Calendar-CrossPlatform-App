@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security;
 using System.IO;
 using System.Net.Http;
-using System.Text;
-
+using System.Net;
 using Xamarin.Forms;
+
 
 
 namespace CalendarApp
@@ -15,26 +13,56 @@ namespace CalendarApp
     {
 		public async void RetrieveLogin()
 		{
-            if (userInput != null)
+            
+            if (userInput != null && passwordInput != null)
             {
-                var httpClient = new HttpClient();
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "http://introtoapps.com/datastore.php?action=load&appid=215075797&objectid="+userInput);
-                var response = await httpClient.SendAsync(request);
-            }
+                try
+                {
+                    HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create("http://introtoapps.com/datastore.php?action=load&appid=215075797&objectid=" + userInput + "&data=" + passwordInput);
+                    webRequest.Method = "GET";
 
-            if(passwordInput != null){
-				var httpClient = new HttpClient();
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "http://introtoapps.com/datastore.php?action=load&appid=215075797&objectid=" + passwordInput);
-				var response = await httpClient.SendAsync(request);
-            } 
+                    string responseData = string.Empty;
+                    HttpWebResponse httpResponse = (System.Net.HttpWebResponse)await webRequest.GetResponseAsync();
+
+                    using (StreamReader responseReader = new StreamReader(httpResponse.GetResponseStream()))
+                    {
+                        responseData = responseReader.ReadToEnd();
+                    }
+                    UserMatch = true;
+                }
+                catch (System.Net.WebException)
+                {
+                    //Code - If does not Exist 
+                    await DisplayAlert("Alert", "Login doesnt exist", "OK");
+                    UserMatch = false;
+                }
+
+            }
+			if (UserMatch == true)
+			{
+
+                await Navigation.PushAsync(new HomePage());
+
+				var existingPages = Navigation.NavigationStack.ToList();
+				foreach (var page in existingPages)
+				{
+					Navigation.RemovePage(page);
+				}
+			}
 		}
+
+		public interface SHA512StringHash
+		{
+			string Hash(string input);
+		}
+
 
 		public async void SendLogin()
 		{
             if (userInput != null)
             {
                 var httpClient = new HttpClient();
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "http://introtoapps.com/datastore.php?action=save&appid=215075797&objectid=" + userInput + "&data=" + userInput);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "http://introtoapps.com/datastore.php?action=save&appid=215075797&objectid=" + userInput);
                 var response = await httpClient.SendAsync(request);
             }
 		}
@@ -43,22 +71,32 @@ namespace CalendarApp
 		{
             if (passwordInput != null)
             {
+                string hashedPassword = DependencyService.Get<SHA512StringHash>().Hash(passwordInput);
+
                 var httpClient = new HttpClient();
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "http://introtoapps.com/datastore.php?action=save&appid=215075797&objectid=" + passwordInput + "&data=" + passwordInput);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "http://introtoapps.com/datastore.php?action=save&appid=215075797&objectid=" + userInput + "&data=" + hashedPassword);
                 var response = await httpClient.SendAsync(request);
             }
 		}
 
 
-        public string userInput { get; set; }
+
+		public string userInput { get; set; }
 
         public string passwordInput { get; set; }
+
+        public bool UserMatch { get; set; }
+
 
 
         public LoginPage()
         {
             InitializeComponent();
 
+           
+
+            userInput = null;
+            passwordInput = null;
 
 			//Heading for the page
 			Label header = new Label
@@ -74,7 +112,6 @@ namespace CalendarApp
             void OnUserNameEntry(object sender, EventArgs e){
                 userInput = usernameEntry.Text;
             }
-
 
             var passwordEntry = new Entry { Placeholder = "Password", IsPassword = true };
 
@@ -128,23 +165,13 @@ namespace CalendarApp
 
 			loginButton.Clicked += OnLoginButtonClicked;
 			void OnLoginButtonClicked(object sender, EventArgs e)
-			{
-                if (userInput != null)
+            {
+                if (userInput != null && passwordInput != null)
                 {
-                    if (passwordInput != null)
+                    RetrieveLogin();
 
-                    {
-                        RetrieveLogin();
-                        Navigation.PushAsync(new HomePage());
-
-                        var existingPages = Navigation.NavigationStack.ToList();
-                        foreach (var page in existingPages)
-                        {
-                            Navigation.RemovePage(page);
-                        }
-                    }
                 }
-                else { DisplayAlert("Alert", "Login failed", "OK"); }
+                else { DisplayAlert("Alert", "Login fields empty", "OK");}
 
 			}
 

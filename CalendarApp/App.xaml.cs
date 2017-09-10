@@ -12,7 +12,7 @@ namespace CalendarApp
 
             //MainPage = new HomePage();
 
-            MainPage = new NavigationPage(new LoginPage());
+            MainPage = new NavigationPage(new HomePage());
 
         }
 		

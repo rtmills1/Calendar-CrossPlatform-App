@@ -2,55 +2,59 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
-
-
-
+using System.Diagnostics;
 
 namespace CalendarApp
 {
 
     public partial class CalendarAppPage : ContentPage
     {
-       
-
+        
+        public bool today;
         public CalendarAppPage(string name, DateTime fullData, Color realColor)
         {
             InitializeComponent();
 
+
+
+            SwitchCell todaySwitch;
+            SwitchCell weekSwitch;
+            SwitchCell monthSwitch;
+
+            List<CalendarDate> calendarDate;
+
             //Switch buttons to filter calendar dates between different periods
             TableView tableView = new TableView
             {
-                HeightRequest = 185,
-                RowHeight = 35,
-                VerticalOptions = LayoutOptions.StartAndExpand,
-				Intent = TableIntent.Form,
-				Root = new TableRoot
-				{
-					new TableSection ("Filters")
+                HeightRequest = 130,
+                RowHeight = 30,
+                VerticalOptions = LayoutOptions.Start,
+                Intent = TableIntent.Form,
+                Root = new TableRoot
+                {
+                    new TableSection ("Filters")
                     {
-                        new SwitchCell
+                        (todaySwitch = new SwitchCell
                         {
                             Text = "Today:",
-                            On = true
-                                     
-                        },
+                            On = false
+                        }),
          
-                        new SwitchCell
+                        (weekSwitch = new SwitchCell
                         {
                             Text = "Week:",
-                            On = true
-                        },
+                            On = false
+                        }),
               
-                        new SwitchCell{
+                        (monthSwitch = new SwitchCell{
                             Text = "Month:",
-                            On = true
-                        }
+                            On = false
+                        })
                     
 					}
 				}
 			};
 
-			
 
             //Button that links to AddDatesPage so users can create a calendar item
 			Button button = new Button
@@ -66,6 +70,8 @@ namespace CalendarApp
 				BorderColor = Color.FromHex("006996")
                                                
 			};
+
+			
             //When button is clicked
 			button.Clicked += OnButtonClicked;
 			void OnButtonClicked(object sender, EventArgs e)
@@ -75,19 +81,22 @@ namespace CalendarApp
 
 			}
             //Heading for the page
-           /* Label header = new Label
-            {
-                Text = "Calendar",
-                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
-                HorizontalOptions = LayoutOptions.Center
-            };*/
+            /* Label header = new Label
+             {
+                 Text = "Calendar",
+                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+                 HorizontalOptions = LayoutOptions.Center
+             };*/
 
 
             // Define some data.
             // Saves calendar dates into the list
-            List<CalendarDate> calendarDate = new List<CalendarDate>
+
+            calendarDate = new List<CalendarDate>
             {
+                
                 new CalendarDate(name, fullData, realColor),
+                new CalendarDate("Study", new DateTime(2017, 9, 9, 23, 30, 0), Color.Aqua),
                 new CalendarDate("Movies", new DateTime(2017, 2, 1, 11, 30, 0), Color.Aqua),
                 new CalendarDate("Holiday", new DateTime(2017, 8, 1, 13, 45, 00), Color.Green),
                 new CalendarDate("Sell House", new DateTime(2017, 8, 20, 14, 00 ,00), Color.Purple),
@@ -100,11 +109,18 @@ namespace CalendarApp
                 new CalendarDate("Mountain Biking", new DateTime(2019, 2, 5, 11, 0, 0), Color.Orange),
             };
 			
-           
+				
+			
+			//calendarDate.RemoveAll(delegate (CalendarDate x) { return x.Date <= new DateTime(2017, 1, 1, 0, 0, 0); });
+			//calendarDate.RemoveAll(delegate (CalendarDate x) { return x.Date >= new DateTime(2018, 1, 1, 0, 0, 0); });
+			
+            //calendarDate.RemoveAll(delegate (CalendarDate x) { return x.Date >= DateTime.Now.AddMonths(1); });
+            //calendarDate.RemoveAll(delegate (CalendarDate x) { return x.Date <= DateTime.Now; });
 
             // Create the ListView.
             ListView listView = new ListView
             {
+                IsPullToRefreshEnabled = true,
 
                 // Source of data items.
                 ItemsSource = calendarDate,
@@ -129,6 +145,7 @@ namespace CalendarApp
 
                         BoxView boxView = new BoxView();
                         boxView.SetBinding(BoxView.ColorProperty, "Colour");
+
 
 
                         // Return an assembled ViewCell.
@@ -159,9 +176,25 @@ namespace CalendarApp
             };
 
 
+			todaySwitch.OnChanged += todaySwitch_Toggled;
+			void todaySwitch_Toggled(object sender, ToggledEventArgs e)
+			{
 
-            // Accomodate iPhone status bar.
-            this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
+                /*try
+                {
+                    
+                    calendarDate.RemoveAll(delegate (CalendarDate x) { return x.Date >= DateTime.Today.AddDays(1); });
+                    calendarDate.RemoveAll(delegate (CalendarDate x) { return x.Date <= DateTime.Today; });
+                    listView.BeginRefresh();
+                    listView.EndRefresh();
+
+                }
+                catch (Exception) { Debug.WriteLine("error"); }*/
+			}
+
+
+			// Accomodate iPhone status bar.
+			this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
 
             // Build the page.
             this.Content = new StackLayout
@@ -182,9 +215,11 @@ namespace CalendarApp
         {
             public CalendarDate(string name, DateTime date, Color colour)
             {
-                this.Name = name;
-                this.Date = date;
-                this.Colour = colour;
+                
+                    this.Name = name;
+                    this.Date = date;
+                    this.Colour = colour;
+                
             }
 
             public string Name { private set; get; }
