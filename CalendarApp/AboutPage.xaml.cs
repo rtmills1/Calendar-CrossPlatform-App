@@ -15,8 +15,9 @@ namespace CalendarApp
 			{
 				Text = "This app was developed by Riley Mills SID:215075797, using Xarmarin for " +
                     "cross-platform development between Android and iOS.",
-                FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
-				HorizontalOptions = LayoutOptions.Center
+                FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label)),
+                HorizontalTextAlignment = TextAlignment.Start,
+                VerticalTextAlignment = TextAlignment.Center,
 			};
 
 			// Build the page.

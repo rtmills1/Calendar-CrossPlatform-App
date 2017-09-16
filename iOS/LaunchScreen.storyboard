@@ -13,45 +13,57 @@
                         <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleAspectFit" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calendar App" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="12" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="133" y="267" width="123" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" id="229" translatesAutoresizingMaskIntoConstraints="NO" image="Icon-180.png" horizontalHuggingPriority="251" semanticContentAttribute="spatial">
+                                <rect key="frame" x="98" y="82" width="125" height="117"/>
+                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                 <constraints>
-                                    <constraint id="29" firstAttribute="width" constant="123"/>
+                                    <constraint id="4539" firstAttribute="width" constant="125"/>
+                                    <constraint id="4540" firstAttribute="height" constant="117"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="29"/>
+                                        <exclude reference="4539"/>
+                                        <exclude reference="4540"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="29"/>
+                                        <include reference="4539"/>
+                                        <include reference="4540"/>
                                     </mask>
                                 </variation>
-                            </label>
+                            </imageView>
                         </subviews>
-                        <constraints>
-                            <constraint id="27" firstItem="12" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="133"/>
-                            <constraint id="28" firstItem="12" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="267"/>
-                        </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="27"/>
-                                <exclude reference="28"/>
+                                <exclude reference="1062"/>
+                                <exclude reference="1063"/>
+                                <exclude reference="4537"/>
+                                <exclude reference="4538"/>
+                                <exclude reference="4541"/>
                             </mask>
                         </variation>
+                        <variation key="heightClass=compact-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="1062"/>
+                                <include reference="1063"/>
+                            </mask>
+                        </variation>
+                        <constraints>
+                            <constraint id="4537" firstItem="Ze5-6b-2t3" firstAttribute="trailing" secondItem="229" secondAttribute="trailing" constant="97"/>
+                            <constraint id="4538" firstItem="229" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="82"/>
+                            <constraint id="4541" firstItem="229" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="82"/>
+                        </constraints>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="27"/>
-                                <include reference="28"/>
+                                <include reference="4537"/>
+                                <include reference="4538"/>
+                                <include reference="4541"/>
                             </mask>
                         </variation>
                     </view>
@@ -61,7 +73,11 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Icon-180.png" width="180" height="180"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedScreenMetrics key="destination" type="retina55"/>
+        <simulatedScreenMetrics key="destination"/>
+        <simulatedOrientationMetrics key="orientation"/>
     </simulatedMetricsContainer>
 </document>
