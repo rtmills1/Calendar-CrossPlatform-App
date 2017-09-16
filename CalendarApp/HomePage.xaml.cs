@@ -10,26 +10,20 @@ namespace CalendarApp
         public HomePage()
         {
             InitializeComponent(); 
-
+            NavigationPage.SetHasBackButton(this, false);
             // Gets current time to display in string
 			string format = "D";
             currentTime.Text = DateTime.Now.ToString(format);
 
-
-			var existingPages = Navigation.NavigationStack.ToList();
-			foreach (var page in existingPages)
-			{
-				Navigation.RemovePage(page);
-			}
 
         }
         // Sends users to CalendarAppPage when button is clicked
 		private async void NavigateButton_OnClicked(object sender, EventArgs e)
 		{
                 //Define some default data
-                string name = "Go for a run";
-                Color realColor = Color.MediumVioletRed;
-                DateTime fullDate = DateTime.Now;
+                string name = null;
+                Color realColor = Color.Gray;
+                DateTime fullDate = new DateTime(1990, 1, 1, 1, 1, 1);
            // Sends to Calender page
             await Navigation.PushAsync(new CalendarAppPage(name, fullDate, realColor));
 			

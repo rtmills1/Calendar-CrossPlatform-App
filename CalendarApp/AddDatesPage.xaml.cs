@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
-
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
+using static CalendarApp.CalendarAppPage;
 
 namespace CalendarApp
 {
@@ -14,19 +13,22 @@ namespace CalendarApp
             Dictionary<string, Color> nameToColor = new Dictionary<string, Color>
             {
                 { "Aqua", Color.Aqua }, { "Black", Color.Black },
-                { "Blue", Color.Blue }, 
-                { "Gray", Color.Gray }, { "Green", Color.Green },
+                { "Blue", Color.Blue }, { "Yellow", Color.Yellow },
+                { "White", Color.White }, { "Green", Color.Green },
                 { "Lime", Color.Lime }, { "Maroon", Color.Maroon },
                 { "Navy", Color.Navy }, { "Olive", Color.Olive },
                 { "Purple", Color.Purple }, { "Red", Color.Red },
                 { "Silver", Color.Silver }, { "Teal", Color.Teal },
-                { "White", Color.White }, { "Yellow", Color.Yellow }
             };
 
         Label label;
 
+		public interface IChooseContact
+		{
+			Task<string> ChooseContact();
+		}
 
-        public AddDatesPage()
+        internal AddDatesPage()
         {
             InitializeComponent();
 
@@ -118,28 +120,48 @@ namespace CalendarApp
             void OnButtonClicked(object sender, EventArgs e)
             {
 
-                    //Gets values from user entry fields/pickers
+                //Gets values from user entry fields/pickers
 
-                    var name = nameEntry.Text;
-                    var dateDate = datePicker.Date;
-                    var dateTime = time.Time;
-                    Color realColor = boxView.Color;
+                var name = nameEntry.Text;
+                var dateDate = datePicker.Date;
+                var dateTime = time.Time;
+                Color realColor = boxView.Color;
 
-                    //Combines both Date and time into one data value DateTime
-                    DateTime fullDate = dateDate + dateTime;
+                //Combines both Date and time into one data value DateTime
+                DateTime fullDate = dateDate + dateTime;
 
+               
                 //label.Text = String.Format("{0}, {1}, {2}", name, fullDate, realColor);
-                    Navigation.InsertPageBefore(new HomePage(), this);
-				    Navigation.PopAsync();
-				    
-                    //Sends data to calendar and sends users back to calendar page
-                    Navigation.PushAsync(new CalendarAppPage(name, fullDate, realColor));
+                Navigation.InsertPageBefore(new HomePage(), this);
+				Navigation.PopAsync();
+
+                //Sends data to calendar and sends users back to calendar page
+                Navigation.PushAsync(new CalendarAppPage(name, fullDate, realColor));
     
                 
             }
 
-            // Build the page.
-            this.Content = new StackLayout
+
+            var entryContact = new Entry { Placeholder = "Contact Number" };
+			var btnChooseContact = new Button
+			{
+				Text = "Choose Contact",
+			};
+			btnChooseContact.Clicked += async (s, e) =>
+			{
+                entryContact.Text = await DependencyService.Get<IChooseContact>().ChooseContact();
+			};
+			Content = new StackLayout
+			{
+				VerticalOptions = LayoutOptions.CenterAndExpand,
+				Children = { entryContact, btnChooseContact }
+			};
+
+
+
+
+			// Build the page.
+			this.Content = new StackLayout
             {
                 Children =
                 {
@@ -151,12 +173,14 @@ namespace CalendarApp
                     boxView,
                     button,
                     label,
+                    entryContact,
+                    btnChooseContact
 
                 }
             };
         }
 
-
+		
             
 
 

@@ -1,18 +1,16 @@
 ﻿using System;
-
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using static CalendarApp.LoginPage;
 using System.Security.Cryptography;
 using System.Text;
 using static CalendarApp.Droid.MainActivity;
+using static CalendarApp.Droid.ChooseContactDroid;
 
 [assembly: Xamarin.Forms.Dependency(typeof(SHA512StringHasImplementation))]
+[assembly: Xamarin.Forms.Dependency(typeof(Mobile))]
 namespace CalendarApp.Droid
 {
     [Activity(Label = "CalendarApp.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -28,7 +26,20 @@ namespace CalendarApp.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
             LoadApplication(new App());
+
         }
+
+
+		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+		{
+			base.OnActivityResult(requestCode, resultCode, data);
+            if (Mobile.IntentHelper.IsMobileIntent(requestCode))
+			{
+                Mobile.IntentHelper.ActivityResult(requestCode, data);
+			}
+		}
+
+
 
 		public class SHA512StringHasImplementation : SHA512StringHash
 		{
@@ -53,5 +64,10 @@ namespace CalendarApp.Droid
 				return (input);
 			}
 		}
+
+		
+
+		
+
     }
 }

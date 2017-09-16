@@ -14,6 +14,7 @@ namespace CalendarApp
 
             MainPage = new NavigationPage(new HomePage());
 
+
         }
 		
 		
