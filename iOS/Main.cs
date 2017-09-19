@@ -12,7 +12,7 @@ using static CalendarApp.CalendarAppPage;
 using static CalendarApp.LoginPage;
 using static CalendarApp.AddDatesPage;
 
-
+// Dependeny link created for interfaces
 [assembly: Xamarin.Forms.Dependency(typeof(SHA512StringHasImplementation))]
 [assembly: Xamarin.Forms.Dependency(typeof(ChooseContact))]
 namespace CalendarApp.iOS
@@ -31,8 +31,8 @@ namespace CalendarApp.iOS
     public class SHA512StringHasImplementation : SHA512StringHash
     {
         public SHA512StringHasImplementation() { }
-
-        public string Hash(string input)
+		/* This idea to hash passwords if from user Olias https://stackoverflow.com/questions/32589456/how-to-use-hash-sha-in-xamarin */
+		public string Hash(string input)
         {
             SHA512 shaM = new SHA512Managed();
             // Convert the input string to a byte array and compute the hash.
@@ -50,10 +50,12 @@ namespace CalendarApp.iOS
             input = sBuilder.ToString();
             return (input);
         }
-
+        /* end of Olias idea */
 
     }
-    public class ChooseContact : IChooseContact
+
+	/* This idea to open contact list is from a user Xamarians at http://blog.xamarians.com/Blog/2017/5/27/xamarin-contacts-picker */
+		public class ChooseContact : IChooseContact
     {
         Task<string> IChooseContact.ChooseContact()
         {
@@ -83,5 +85,6 @@ namespace CalendarApp.iOS
         {
             return UIApplication.SharedApplication.KeyWindow.RootViewController;
         }
-    }
+		/* end Xamarians'idea*/
+	}
 }

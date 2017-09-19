@@ -9,6 +9,7 @@ using System.Text;
 using static CalendarApp.Droid.MainActivity;
 using static CalendarApp.Droid.ChooseContactDroid;
 
+// Dependecy link for interfaces
 [assembly: Xamarin.Forms.Dependency(typeof(SHA512StringHasImplementation))]
 [assembly: Xamarin.Forms.Dependency(typeof(Mobile))]
 namespace CalendarApp.Droid
@@ -29,7 +30,7 @@ namespace CalendarApp.Droid
 
         }
 
-
+		/* This idea to open contact list is from a user Xamarians at http://blog.xamarians.com/Blog/2017/5/27/xamarin-contacts-picker */
 		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
 		{
 			base.OnActivityResult(requestCode, resultCode, data);
@@ -38,13 +39,13 @@ namespace CalendarApp.Droid
                 Mobile.IntentHelper.ActivityResult(requestCode, data);
 			}
 		}
-
-
+		/* end Xamarians' idea*/
 
 		public class SHA512StringHasImplementation : SHA512StringHash
 		{
 			public SHA512StringHasImplementation() { }
 
+			/* This idea to hash passwords if from user Olias https://stackoverflow.com/questions/32589456/how-to-use-hash-sha-in-xamarin */
 			public string Hash(string input)
 			{
 				SHA512 shaM = new SHA512Managed();
@@ -63,6 +64,7 @@ namespace CalendarApp.Droid
 				input = sBuilder.ToString();
 				return (input);
 			}
+			/* end of Olias idea */
 		}
 
 		

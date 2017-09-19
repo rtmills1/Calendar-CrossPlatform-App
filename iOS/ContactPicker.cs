@@ -6,6 +6,7 @@ namespace CalendarApp.iOS
 {
 	public static class ContactPicker
 	{
+		/* This idea to open contact list is from a user Xamarians at http://blog.xamarians.com/Blog/2017/5/27/xamarin-contacts-picker */
 		static Action<AddressBook.ABPerson> _callback;
 		static ABPeoplePickerNavigationController picker;
 		static void Init()
@@ -30,5 +31,6 @@ namespace CalendarApp.iOS
 			Init();
 			parent.PresentModalViewController(picker, true);
 		}
+		/* end Xamarians' idea*/
 	}
 }

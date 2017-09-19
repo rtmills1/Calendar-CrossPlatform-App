@@ -10,8 +10,8 @@ namespace CalendarApp.Droid
 {
     public class ChooseContactDroid
     {
-
-        public class Mobile : IChooseContact
+		/* This idea to open contact list is from a user Xamarians at http://blog.xamarians.com/Blog/2017/5/27/xamarin-contacts-picker */
+		public class Mobile : IChooseContact
 		{
             Task<string> IChooseContact.ChooseContact()
             {
@@ -87,9 +87,9 @@ namespace CalendarApp.Droid
 					CurrentActivity.StartActivityForResult(intent, RequestCodes.ContactPicker);
 				}
 			}
+			/* end Xamarians' idea*/
 
-
-        }
+		}
 		
     }
 }

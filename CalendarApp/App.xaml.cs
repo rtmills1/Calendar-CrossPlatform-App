@@ -9,15 +9,9 @@ namespace CalendarApp
         public App()
         {
             InitializeComponent();
-
-            //MainPage = new HomePage();
-
-            MainPage = new NavigationPage(new HomePage());
-
+            MainPage = new NavigationPage(new LoginPage());
 
         }
-		
-		
 
         protected override void OnStart()
         {

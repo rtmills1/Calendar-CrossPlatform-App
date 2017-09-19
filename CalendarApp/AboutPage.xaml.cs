@@ -10,7 +10,8 @@ namespace CalendarApp
         public AboutPage()
         {
             InitializeComponent();
-			//Heading for the page
+
+			// Heading for the page
 			Label header = new Label
 			{
 				Text = "This app was developed by Riley Mills SID:215075797, using Xarmarin for " +

@@ -21,8 +21,10 @@ namespace CalendarApp
                 { "Silver", Color.Silver }, { "Teal", Color.Teal },
             };
 
+        // Declare lable
         Label label;
 
+        // Interface for contact selector code located in iOS and Android project files
 		public interface IChooseContact
 		{
 			Task<string> ChooseContact();
@@ -45,7 +47,7 @@ namespace CalendarApp
             // Time picker for users to select time of event
             var time = new TimePicker () { Time = new TimeSpan (17,0,0) };
 
-            //Heading for the page
+            // Heading for the page
             Label header = new Label
             {
                 Text = "Create New Date",
@@ -101,6 +103,26 @@ namespace CalendarApp
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            // Entry field to enter in contact information
+			var entryContact = new Entry { Placeholder = "Optional - Enter Contact Number or Name" };
+
+            // Button that opens list of system contacts
+			var btnChooseContact = new Button
+			{
+				Text = "Choose Contact",
+			};
+			btnChooseContact.Clicked += async (s, e) =>
+			{
+                // Uses contact selector code from iOS and Android projects
+				entryContact.Text = await DependencyService.Get<IChooseContact>().ChooseContact();
+			};
+			Content = new StackLayout
+			{
+				VerticalOptions = LayoutOptions.CenterAndExpand,
+				Children = { entryContact, btnChooseContact }
+			};
+
+
             // Button to pass all the users inputed values into the listview calendar
             Button button = new Button
             {
@@ -120,43 +142,31 @@ namespace CalendarApp
             void OnButtonClicked(object sender, EventArgs e)
             {
 
-                //Gets values from user entry fields/pickers
-
+                // Gets values from user entry fields/pickers
                 var name = nameEntry.Text;
                 var dateDate = datePicker.Date;
                 var dateTime = time.Time;
+                var contact = entryContact.Text;
                 Color realColor = boxView.Color;
 
-                //Combines both Date and time into one data value DateTime
+                // Combines both Date and time into one data value DateTime
                 DateTime fullDate = dateDate + dateTime;
 
+                // Checks if contact entry has a value
+                if(contact != null){
+                    // Adds contact information to name
+                    name = name + " - w/ " + contact;
+                }
                
-                //label.Text = String.Format("{0}, {1}, {2}", name, fullDate, realColor);
+                // label.Text = String.Format("{0}, {1}, {2}", name, fullDate, realColor);
                 Navigation.InsertPageBefore(new HomePage(), this);
 				Navigation.PopAsync();
 
-                //Sends data to calendar and sends users back to calendar page
+                // Sends data to calendar and sends users back to calendar page
                 Navigation.PushAsync(new CalendarAppPage(name, fullDate, realColor));
     
                 
             }
-
-
-            var entryContact = new Entry { Placeholder = "Contact Number" };
-			var btnChooseContact = new Button
-			{
-				Text = "Choose Contact",
-			};
-			btnChooseContact.Clicked += async (s, e) =>
-			{
-                entryContact.Text = await DependencyService.Get<IChooseContact>().ChooseContact();
-			};
-			Content = new StackLayout
-			{
-				VerticalOptions = LayoutOptions.CenterAndExpand,
-				Children = { entryContact, btnChooseContact }
-			};
-
 
 
 
@@ -171,10 +181,11 @@ namespace CalendarApp
                     time,
                     picker,
                     boxView,
+					entryContact,
+					btnChooseContact,
                     button,
-                    label,
-                    entryContact,
-                    btnChooseContact
+                    label
+
 
                 }
             };
